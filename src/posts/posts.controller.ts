@@ -2,6 +2,7 @@ import express from 'express';
 import Controller from "../interfaces/controller.interface";
 import postsModel from "./posts.model";
 import Post from "./post.interface";
+import PostNotFoundException from "../exceptions/PostNotFoundException";
 
 class PostsController{
     public path = '/posts';
@@ -30,12 +31,17 @@ class PostsController{
         });
     }
 
-    private getPostById = async (req:express.Request, res:express.Response) => {
+    private getPostById = async (req:express.Request, res:express.Response, next:express.NextFunction) => {
         const {id} = req.params;
 
         const post = await this.post.findById(id);
 
-        if(post) res.json(post);
+        if (post) {
+            res.json(post);
+        }
+        else {
+           next(new PostNotFoundException(id));
+        }
     }
 
     private createPost = async (req:express.Request, res:express.Response) => {
@@ -46,12 +52,16 @@ class PostsController{
         res.json(createdPost);
     }
 
-    private updatePost = async(req:express.Request, res:express.Response) =>{
+    private updatePost = async(req:express.Request, res:express.Response, next:express.NextFunction) =>{
         const {id} = req.params;
         const postData: Post = req.body;
 
         const updatedPost = await this.post.findByIdAndUpdate(id, postData, { new: true });
-        if(updatedPost) res.json(updatedPost);
+        if (updatedPost){
+            res.json(updatedPost);
+        } else {
+            next(new PostNotFoundException(id));
+        }
 
         // const getPost = await this.post.findById(id);
         //
@@ -65,12 +75,16 @@ class PostsController{
         // }
     }
 
-    private deletePost = async(req:express.Request, res:express.Response) => {
+    private deletePost = async(req:express.Request, res:express.Response, next: express.NextFunction) => {
         const {id} = req.params;
 
         const successResponse = await this.post.findByIdAndDelete(id);
 
-        if(successResponse) res.send(200);
+        if (successResponse) {
+            res.send(200);
+        } else {
+            next(new PostNotFoundException(id));
+        }
         // const getPost = await this.post.findById(id)
         //
         // if(getPost)

@@ -6,6 +6,8 @@ import morgan from "morgan";
 import 'dotenv/config'
 import Controller from "./interfaces/controller.interface";
 
+import errorMiddleware from "./middleware/error.middleware";
+
 class App {
     public app: express.Application;
 
@@ -16,6 +18,7 @@ class App {
 
         this.initMiddleWares();
         this.initControllers(controllers);
+        this.initErrorHandling();
     }
 
     private initMiddleWares(){
@@ -28,6 +31,10 @@ class App {
         controllers.forEach((controller: Controller) => {
             this.app.use('/', controller.router);
         })
+    }
+
+    private initErrorHandling(){
+        this.app.use(errorMiddleware);
     }
 
     public listen(){
