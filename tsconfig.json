@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["es2016", "es2017"],
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true
+  },
+  "exclude" : [
+    "node_modules"
+  ],
+  "include" : [
+    "src/**/*.ts"
+  ]
+}
