@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
+    "sourceMap": true,
+    "target": "es2017",
     "rootDir": "./",
     "outDir": "./dist",
     "baseUrl": "./src",
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "strict": true,
   },
