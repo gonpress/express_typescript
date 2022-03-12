@@ -1,7 +1,7 @@
-import express from 'express';
+import * as express from 'express';
 import * as bodyParser from "body-parser";
-import mongoose from "mongoose";
-import morgan from "morgan";
+import * as mongoose from "mongoose";
+import * as morgan from "morgan";
 
 import 'dotenv/config'
 import Controller from "./interfaces/controller.interface";

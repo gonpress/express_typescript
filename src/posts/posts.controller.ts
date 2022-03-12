@@ -1,8 +1,10 @@
-import express from 'express';
+import * as express from 'express';
 import Controller from "../interfaces/controller.interface";
 import postsModel from "./posts.model";
 import Post from "./post.interface";
 import PostNotFoundException from "../exceptions/PostNotFoundException";
+import validationMiddleware from "../middleware/validation.middleware";
+import CreatePostDto from "./posts.dto";
 
 class PostsController{
     public path = '/posts';
@@ -18,8 +20,8 @@ class PostsController{
     public initRoutes(){
         this.router.get(this.path, this.getAllPosts);
         this.router.get(`${this.path}/:id`, this.getPostById);
-        this.router.post(this.path, this.createPost);
-        this.router.put(`${this.path}/:id`, this.updatePost);
+        this.router.post(this.path, validationMiddleware(CreatePostDto), this.createPost);
+        this.router.put(`${this.path}/:id`, validationMiddleware(CreatePostDto), this.updatePost);
         this.router.delete(`${this.path}/:id`, this.deletePost);
     }
 

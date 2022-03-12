@@ -2,20 +2,17 @@
   "compilerOptions": {
     "sourceMap": true,
     "target": "es2017",
-    "rootDir": "./",
     "outDir": "./dist",
     "baseUrl": "./src",
     "alwaysStrict": true,
     "noImplicitAny": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "strict": true,
+    "emitDecoratorMetadata": true
   },
-  "exclude" : [
-    "node_modules"
-  ],
-  "include" : [
+  "include": [
     "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
